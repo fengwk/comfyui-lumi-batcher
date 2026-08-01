@@ -5,7 +5,9 @@ import os
 import pandas
 import zipfile
 import folder_paths
-from .file import copyFile, get_file_absolute_path
+
+from natsort import natsorted
+from .file import copyFile
 
 
 class ResolveFileManager:
@@ -140,6 +142,7 @@ class ResolveFileManager:
                         audio_file.write(audio_data)
                         res.append(file_name)
 
+        res = natsorted(res)
         return res
 
     def resolve_single_file(self, path) -> list[str]:

@@ -5,6 +5,7 @@ import copy
 import json
 import mimetypes
 import os
+import time
 import traceback
 import uuid
 import aiofiles
@@ -880,6 +881,7 @@ class BatchToolsHandler:
                 for sensitive_val in execution.SENSITIVE_EXTRA_DATA_KEYS:
                     if sensitive_val in extra_data:
                         sensitive[sensitive_val] = extra_data.pop(sensitive_val)
+                extra_data["create_time"] = int(time.time() * 1000)
                 server.PromptServer.instance.prompt_queue.put(
                     (
                         number,
